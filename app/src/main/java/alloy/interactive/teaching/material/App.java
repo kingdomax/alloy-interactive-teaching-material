@@ -1,5 +1,6 @@
 package alloy.interactive.teaching.material;
 
+import alloy.interactive.teaching.material.helper.ConsoleHelper;
 import alloy.interactive.teaching.material.helper.FileHelper;
 import alloy.interactive.teaching.material.validator.CommandLineValidator;
 
@@ -17,7 +18,7 @@ public class App {
         // explanation
         String lesson = "";
         while (!lesson.equals("1") && !lesson.equals("2") && !lesson.equals("3")) { // todo-moch: remove this hardcode so it's flexible to add new lesson
-            System.out.print(">> What lesson are you interested in learning today? (1-3): ");
+            ConsoleHelper.response("What lesson are you interested in learning today? (1-3):", true);
             lesson = System.console().readLine().toLowerCase();
         }
         FileHelper.readFile(lesson, "explanation", true);
@@ -25,7 +26,7 @@ public class App {
         // example
         String ans = "";
         while (!ans.equals("y")) {
-            System.out.print(">> Would you like to see syntax example? (y/n): ");
+            ConsoleHelper.response("Would you like to see syntax example? (y/n):", true);
             ans = System.console().readLine().toLowerCase();
         }
         FileHelper.readFile(lesson, "example", true);
@@ -33,7 +34,7 @@ public class App {
         // exercise
         ans = "";
         while (!ans.equals("y")) {
-            System.out.print(">> It's time for an exercise. Shall we start? (y/n): ");
+            ConsoleHelper.response("It's time for an exercise. Shall we start? (y/n):", true);
             ans = System.console().readLine().toLowerCase();
         }
         FileHelper.readFile(lesson, "exercise", true);
@@ -41,7 +42,7 @@ public class App {
         // farewell message
         ans = "";
         while (!ans.equals("y")) {
-            System.out.print(">> The exercise can be completed at your own pace, saved in a separate file, and submitted to our app when completed. Let's proceed for now.. (y/n): ");
+            ConsoleHelper.response("The exercise can be completed at your own pace, saved in a separate file, and submitted to our app when completed. Let's proceed for now.. (y/n):", true);
             ans = System.console().readLine().toLowerCase();
         }
         FileHelper.readFile("", "farewell", false);
@@ -53,7 +54,7 @@ public class App {
         } else if (!args[3].equals("exercise-submit")) { 
             FileHelper.readFile(args[1], args[3], false); 
         } else { 
-            System.out.print(">> RUN VALIDATOR !!"); 
+            System.out.print(">> RUN VALIDATOR..."); 
         }
     }
 }
