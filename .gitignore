@@ -40,5 +40,5 @@ hs_err_pid*
 replay_pid*
 
 # project specific
-.vscode
+.vscode/settings.json
 app/bin
