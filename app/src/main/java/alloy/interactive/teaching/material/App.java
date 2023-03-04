@@ -1,13 +1,20 @@
 package alloy.interactive.teaching.material;
 
-import alloy.interactive.teaching.material.helper.ConsoleHelper;
 import alloy.interactive.teaching.material.helper.FileHelper;
+import alloy.interactive.teaching.material.helper.ConsoleHelper;
 import alloy.interactive.teaching.material.validator.CommandLineValidator;
+import alloy.interactive.teaching.material.validator.alloy.AlloyValidator;
 
-public class App {    
+public class App {
     public static void main(String[] args) {
-        if (args.length <= 0) { walkThroughTheLesson(); }
-        else { jumpToThePoint(args); }
+        if (args.length > 0) { jumpToThePoint(args); }
+        else { walkThroughTheLesson(); }
+    }
+
+    private static void jumpToThePoint(String[] args) {
+        if (!CommandLineValidator.isValidArguments(args)) { ConsoleHelper.response("Invalid command. Please check the command syntax on our welcome page.", false); }
+        else if (args[3].equals("exercise-submit")) { AlloyValidator.execute(args[5]); }
+        else { FileHelper.readFile(args[1], args[3], false); }
     }
 
     // todo-moch: re-write to be more cleaner
@@ -42,19 +49,9 @@ public class App {
         // farewell message
         ans = "";
         while (!ans.equals("y")) {
-            ConsoleHelper.response("The exercise can be completed at your own pace, saved in a separate file, and submitted to our app when completed. Let's proceed for now.. (y/n):", true);
+            ConsoleHelper.response("The exercise can be completed at your own pace, saved in a separate file, and submitted to our app when completed. Let's proceed for now. (y/n):", true);
             ans = System.console().readLine().toLowerCase();
         }
         FileHelper.readFile("", "farewell", false);
-    }
-
-    private static void jumpToThePoint(String[] args) {
-        if (!CommandLineValidator.isValidArguments(args)) { 
-            return; 
-        } else if (!args[3].equals("exercise-submit")) { 
-            FileHelper.readFile(args[1], args[3], false); 
-        } else { 
-            System.out.print(">> RUN VALIDATOR..."); 
-        }
     }
 }

@@ -1,12 +1,12 @@
 
 To validate your alloy model, you can use below command:
-"java -cp alloy-interactive-teaching-material.jar alloy.interactive.teaching.material.App --lesson <lesson-number> --part exercise-submit --partParam <solution-file>"
+"java -jar alloy-interactive-teaching-material.jar --lesson <lesson-number> --part exercise-submit --partParam <solution-file>"
 
 Of course. If you are struggling with this exercise, feel free to take a look on our solution using command line below:
-"java -cp alloy-interactive-teaching-material.jar alloy.interactive.teaching.material.App --lesson <lesson-number> --part exercise-solution"
+"java -jar alloy-interactive-teaching-material.jar --lesson <lesson-number> --part exercise-solution"
 
 Alternatively, you can re-run our app to explore other lessons.
-Remember that all materials will be saved as .txt and .als files so you can come back anytime and take a look at them as you want.
+Remember that all lesson's materials will be saved as .txt and .als files so you can come back anytime and take a look at them as you want.
 
 Good Luck and Have Fun with Alloy World !!
  
