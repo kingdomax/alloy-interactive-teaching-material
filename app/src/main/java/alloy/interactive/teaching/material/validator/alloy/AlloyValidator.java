@@ -1,72 +1,125 @@
 package alloy.interactive.teaching.material.validator.alloy;
 
+import java.util.List;
+import java.util.ArrayList;
+import edu.mit.csail.sdg.ast.Sig;
 import edu.mit.csail.sdg.ast.Module;
 import edu.mit.csail.sdg.ast.Command;
-import edu.mit.csail.sdg.ast.ExprVar;
 import edu.mit.csail.sdg.parser.CompUtil;
+import edu.mit.csail.sdg.alloy4.ConstList;
+import edu.mit.csail.sdg.ast.ExprUnary.Op;
 import edu.mit.csail.sdg.alloy4viz.VizGUI;
 import edu.mit.csail.sdg.alloy4.A4Reporter;
-import edu.mit.csail.sdg.alloy4.ErrorWarning;
-import edu.mit.csail.sdg.alloy4.Util;
 import edu.mit.csail.sdg.translator.A4Options;
 import edu.mit.csail.sdg.translator.A4Solution;
-import edu.mit.csail.sdg.translator.A4Tuple;
-import edu.mit.csail.sdg.translator.A4TupleSet;
 import edu.mit.csail.sdg.translator.TranslateAlloyToKodkod;
 
+import alloy.interactive.teaching.material.helper.FileHelper;
+import alloy.interactive.teaching.material.helper.MeasurementHelper;
+import alloy.interactive.teaching.material.helper.ConsoleHelper;
+
 public class AlloyValidator {
-
-    // todo-moch
-    // - findDeadSignature() might be useful in case user forget to use it
-    // - has explanation what is the output of compiler mean
-    // - playaround with A4Reporter & A4 Options, find few example #done
-    // - give 3 instances answer
-    // - print table is easy to read
-    // - check no instance found, what this program will print
-    // - check error, what this program will print
-    // - ask prof. for more useful response from API
     public static void execute(String filename) {
-        System.out.println(">> RUN VALIDATOR..."); 
+        // 0) Setup
+        FileHelper.readFile("", "analyzer", false, false);
+        A4Options options = AlloyOption.getOptions();
+        A4Reporter reporter = AlloyOption.getReporter();
 
-        // Alloy4 sends diagnostic messages and progress reports to the A4Reporter.
-        // By default, the A4Reporter ignores all these events (but you can extend the A4Reporter to display the event for the user)
-        A4Reporter reporter = new A4Reporter() {
+        // 1) Parse & Typecheck the model
+        ConsoleHelper.response("Parsing model: " + filename + "\n", true, 1000);
+        final Module[] moduleWrapper = new Module[1];
+        MeasurementHelper.measureAndReport(() -> {
+            moduleWrapper[0] = CompUtil.parseEverything_fromFile(reporter, null, filename);
+        }, "No syntax error, parsed sucessful", "\n");
 
-            // For example, here we choose to display each "warning" by printing it to System.out
-            @Override
-            public void warning(ErrorWarning msg) {
-                System.out.print("[Custom Message] Relevance Warning:\n" + (msg.toString().trim()) + "\n\n");
-                System.out.flush();
+        // 2) Execute first command in Alloy Model
+        final A4Solution[] solutionWrapper = new A4Solution[1];
+        var firstCommand = moduleWrapper[0].getAllCommands().get(0);
+        var allSignatures = moduleWrapper[0].getAllReachableUserDefinedSigs();
+        var commandTime = MeasurementHelper.measure(() -> {
+            solutionWrapper[0] = TranslateAlloyToKodkod.execute_command(reporter, moduleWrapper[0].getAllReachableSigs(), firstCommand, options);
+        });
+
+        // 3) Check dead signatures
+        ConsoleHelper.response("Determining signatures that do not have atoms in any instance, i.e. dead signatures\n", true, 1000);
+        MeasurementHelper.measureAndReport(() -> {
+            getSignatureListThatNotSatisfyPredefinedExpression(Op.SOME, firstCommand, allSignatures, options, reporter);
+        }, "", "\n");
+
+        // 4) Check core signatures
+        ConsoleHelper.response("Determining signatures that always have atoms except in the empty instance, core signatures\n", true, 1000);
+        MeasurementHelper.measureAndReport(() -> {
+            getSignatureListThatNotSatisfyPredefinedExpression(Op.NO, firstCommand, allSignatures, options, reporter);
+        }, "", "\n");
+
+        // 5) Iterate through solutions and display informative output
+        ConsoleHelper.response("Executing command: " + firstCommand + "\n", true, 1000); 
+        if (solutionWrapper[0].satisfiable()) {
+            System.out.println("Instances found, predicate is consistent ("+commandTime+"ms)\n");
+            generatingInstances(solutionWrapper[0], filename);
+        } else {
+            System.out.println("No instance found, predicate may be inconsistent ("+commandTime+"ms)\n");
+        }
+    }
+
+	private static void getSignatureListThatNotSatisfyPredefinedExpression(Op operation,
+                                                                        Command command,
+                                                                        ConstList<Sig> signatures,
+                                                                        A4Options options,
+                                                                        A4Reporter reporter) {
+        // Modify run command with predefined expression
+		List<String> results = new ArrayList<>();
+        for (Sig signature : signatures) {
+			if (!TranslateAlloyToKodkod.execute_command(reporter,
+                                                    signatures,
+													command.change(command.formula.and(operation == Op.SOME ? signature.some() : signature.no())),
+													options).satisfiable()) { results.add(signature.label); }
+		}
+		
+        // Print the result
+        if (results.size() < 1) {
+            System.out.print("none");
+        } else {
+            StringBuilder stringBuilder = new StringBuilder();
+            for (int i = 0; i < results.size(); i++) {
+                stringBuilder.append(results.get(i));
+                if (i != results.size() - 1) { stringBuilder.append(", "); }
             }
-        };
+            System.out.print(stringBuilder.toString());
+        }
+	}
 
-        // Choose some default options for how you want to execute the commands
-        A4Options options = new A4Options();
-        options.solver = A4Options.SatSolver.SAT4J;
-        options.symmetry = 12; // Anti-lexicographic: explore solutions in a deterministic order that prioritizes smaller relations over larger ones
+    private static void generatingInstances(A4Solution solutions, String inputFile) {
+        var instance = 1;
+        var nextInstance = false;
+        
+        while (instance == 1 || nextInstance) {
+            System.out.println("######################### [INSTANCE "+instance+"] ######################### \n");
+            System.out.println("["+instance+".1] Informative Text");
+            System.out.println(solutions); 
+            System.out.println("["+instance+".2] Relations");
+            AlloyVisualizer.printRelationTable(solutions);
+            System.out.println("["+instance+".3] Graphical Instance");
+            System.out.println("You can view a visual representation as graph in another opened window.\n");
+            System.out.println("["+instance+".4] Output");
+            var outputFile = createOutputFile(inputFile, instance);
+            solutions.writeXML(outputFile);
+            new VizGUI(false, outputFile, null).doShowViz();
+            System.out.println("The instance is generated and is saved as " + outputFile + "\n");
+            System.out.println("#################################################################");
 
-        // Parse+typecheck the model
-        System.out.println("=========== Parsing+Typechecking " + filename + " =============");
-        Module world = CompUtil.parseEverything_fromFile(reporter, null, filename);
-
-        for (Command command : world.getAllCommands()) { // todo-moch: maybe support only 1 command
-            // Execute the command + Print the outcome
-            System.out.println("============ Command " + command + ": ============");
-            A4Solution ans = TranslateAlloyToKodkod.execute_command(reporter, world.getAllReachableSigs(), command, options);
-            System.out.println("============ Before ans ============");
-            System.out.println(ans); // You can query "ans" to find out the values of each set or type. This can be useful for debugging.
-
-
-
-
-            // If satisfiable...
-            if (ans.satisfiable()) {
-                // You can also write the outcome to an XML file
-                ans.writeXML("my_solution_instances.xml");
-
-                // You can then visualize the XML file by calling the visualizer
-                new VizGUI(false, "my_solution_instances.xml", null).doShowViz();
+            // Next instance ??
+            instance++;
+            nextInstance = false;
+            solutions = solutions.next();
+            if (solutions.satisfiable()) {
+                ConsoleHelper.response("Would you like to see next instance (y/n): ", true, -1);
+                nextInstance = System.console().readLine().toLowerCase().equals("y") ? true : false;
             }
         }
+    }
+
+    private static String createOutputFile(String inputFile, int instanceNo) {
+        return (inputFile.lastIndexOf('.') != -1 ? inputFile.substring(0, inputFile.lastIndexOf('.')) : inputFile) + "_instance" + instanceNo + ".xml";
     }
 }

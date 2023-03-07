@@ -1,5 +1,8 @@
 package alloy.interactive.teaching.material.validator;
 
+// todo-moch
+// - support running graphical instance command by passing xml file (don't forgot to change text in alloyvalidator)
+
 // Synopsis
 // java -jar alloy-interactive-teaching-material.jar --lesson <lesson-number> --part <explanation||example||exercise||exercise-solution||exercise-submit> [--partParam <solution-file>]
 public class CommandLineValidator {

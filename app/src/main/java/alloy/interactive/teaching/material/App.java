@@ -12,46 +12,46 @@ public class App {
     }
 
     private static void jumpToThePoint(String[] args) {
-        if (!CommandLineValidator.isValidArguments(args)) { ConsoleHelper.response("Invalid command. Please check the command syntax on our welcome page.", false); }
+        if (!CommandLineValidator.isValidArguments(args)) { ConsoleHelper.response("Invalid command. Please check the command syntax on our welcome page.", false ,0); }
         else if (args[3].equals("exercise-submit")) { AlloyValidator.execute(args[5]); }
-        else { FileHelper.readFile(args[1], args[3], false); }
+        else { FileHelper.readFile(args[1], args[3], true, false); }
     }
 
     // todo-moch: re-write to be more cleaner
     private static void walkThroughTheLesson() {
         // welcome message
-        FileHelper.readFile("", "welcome", false);
+        FileHelper.readFile("", "welcome", true, false);
         
         // explanation
         String lesson = "";
         while (!lesson.equals("1") && !lesson.equals("2") && !lesson.equals("3")) { // todo-moch: remove this hardcode so it's flexible to add new lesson
-            ConsoleHelper.response("What lesson are you interested in learning today? (1-3):", true);
+            ConsoleHelper.response("What lesson are you interested in learning today? (1-3): ", true, -1);
             lesson = System.console().readLine().toLowerCase();
         }
-        FileHelper.readFile(lesson, "explanation", true);
+        FileHelper.readFile(lesson, "explanation", true, true);
 
         // example
         String ans = "";
         while (!ans.equals("y")) {
-            ConsoleHelper.response("Would you like to see syntax example? (y/n):", true);
+            ConsoleHelper.response("Would you like to see syntax example? (y/n): ", true, -1);
             ans = System.console().readLine().toLowerCase();
         }
-        FileHelper.readFile(lesson, "example", true);
+        FileHelper.readFile(lesson, "example", true, true);
 
         // exercise
         ans = "";
         while (!ans.equals("y")) {
-            ConsoleHelper.response("It's time for an exercise. Shall we start? (y/n):", true);
+            ConsoleHelper.response("It's time for an exercise. Shall we start? (y/n): ", true, -1);
             ans = System.console().readLine().toLowerCase();
         }
-        FileHelper.readFile(lesson, "exercise", true);
+        FileHelper.readFile(lesson, "exercise", true, true);
 
         // farewell message
         ans = "";
         while (!ans.equals("y")) {
-            ConsoleHelper.response("The exercise can be completed at your own pace, saved in a separate file, and submitted to our app when completed. Let's proceed for now. (y/n):", true);
+            ConsoleHelper.response("The exercise can be completed at your own pace, saved in a separate file, and submitted to our app when completed. Let's proceed for now. (y/n): ", true, -1);
             ans = System.console().readLine().toLowerCase();
         }
-        FileHelper.readFile("", "farewell", false);
+        FileHelper.readFile("", "farewell", true, false);
     }
 }
