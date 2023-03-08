@@ -8,6 +8,7 @@
 //              __/ |                                           __/ |                     
 //             |___/                                           |___/                      
 
+
 module lesson1
 
 abstract sig Person {

@@ -8,7 +8,7 @@ import alloy.interactive.teaching.material.validator.alloy.AlloyValidator;
 public class App {
     interface Condition { boolean test(String input); }
     interface Part { String execute(String message, String partName, boolean useLessonNumberFromInput, String lessonNumber, Condition condition); }
-    
+
     public static void main(String[] args) {
         if (args.length > 0) { jumpToThePoint(args); }
         else { walkThroughTheLesson(); }
@@ -21,6 +21,8 @@ public class App {
     }
 
     private static void walkThroughTheLesson() {     
+        FileHelper.readFile("", "welcome", true, false);
+        
         Part part = (message, partName, useLessonNumberFromInput, lessonNumber, condition) -> {
             String input = "";
             while (condition.test(input)) {
@@ -32,9 +34,8 @@ public class App {
             FileHelper.readFile(lessonNumber, partName, true, true);
             return lessonNumber;
         };
-        
-        FileHelper.readFile("", "welcome", true, false);
-        String lesson = part.execute("What lesson are you interested in learning today? (1-3): ", "explanation", true, "", input -> !input.equals("1") && !input.equals("2") && !input.equals("3"));
+
+        String lesson = part.execute("What lesson are you interested in learning today? (1-3): ", "explanation", true, "", input -> !input.equals("1") && !input.equals("2") && !input.equals("3")); // todo-moch: change to config
         part.execute("Would you like to see syntax example? (y/n): ", "example", false, lesson, input -> !input.equals("y"));
         part.execute("It's time for an exercise. Shall we start? (y/n): ", "exercise", false, lesson, input -> !input.equals("y"));
         part.execute("The exercise can be completed at your own pace, saved in a separate file, and submitted to our app when completed. Let's proceed for now. (y/n): ", "farewell", false, "", input -> !input.equals("y"));

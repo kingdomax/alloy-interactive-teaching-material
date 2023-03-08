@@ -1,0 +1,42 @@
+
+//    _                                  ___  
+//   | |                                |__ \ 
+//   | |     ___  ___ ___  ___  _ __       ) |
+//   | |    / _ \/ __/ __|/ _ \| '_ \     / / 
+//   | |___|  __/\__ \__ \ (_) | | | |   / /_ 
+//   |______\___||___/___/\___/|_| |_|  |____|
+
+
+[2.1] Facts
+Facts are constraints that are always true for any instance found over the model. They are used to specify properties of the model that are true in all possible instances of the model. This is useful for specifying global properties that must hold regardless of the specific values of the model's parameters or the instance being checked.
+The syntax for a fact is as follows:
+==> "fact name { constraint } // The name is optional and it can be a string"
+For example, the following fact ensures that all nodes in a list are connected:
+==> "fact Connected { List.header.*link = Node } // All nodes are in the list"
+
+
+[2.2] Functions
+Functions are named expressions with declaration parameters and a declaration expression.
+They are a way of encapsulating a computation that can be reused in other parts of the model.
+This can help make the model more modular and easier to understand by breaking complex computations into smaller, reusable pieces.
+The result of function will be a set.
+The syntax for a function is as follows:
+==> "fun name[a: Set1, b: Set2]: output_type { expression }"
+For example, the following function returns the set of all parent nodes of a given node based on the link relation:
+==> "fun parent [n: Node] : Node { n.~link }"
+
+
+[2.3] Predicates
+Predicates are named formulas with declaration parameters.
+Like functions, they help make the model more modular and easier to understand by breaking complex formulas into smaller, reusable pieces.
+Additionally, predicates are often used to specify constraints on the model that are not trivially expressed using the built-in constraints and operators provided by Alloy.
+The result of predicates will be true or false.
+The syntax for a predicate is as follows:
+==> "pred name[a: Set1, b: Set2...] { expression }"
+For example, the following predicate checks if all nodes in a list are reachable from the header node using the link relation:
+==> "pred noDangling(){ Node in List.header.*link }"
+
+
+[2.4] Lesson Summary
+Overall, using facts, functions, and predicates can help make your Alloy models more modular and easier to understand. By breaking down complex properties and computations into smaller, reusable pieces, you can create more readable and maintainable models.
+ 
