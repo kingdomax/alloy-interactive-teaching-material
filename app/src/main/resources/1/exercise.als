@@ -1,21 +1,17 @@
 
-//    ______                   _          
-//   |  ____|                 (_)         
-//   | |__  __  _____ _ __ ___ _ ___  ___ 
-//   |  __| \ \/ / _ \ '__/ __| / __|/ _ \
-//   | |____ >  <  __/ | | (__| \__ \  __/
-//   |______/_/\_\___|_|  \___|_|___/\___|
-
+//    _                              __    ______                   _          
+//   | |                            /_ |  |  ____|                 (_)         
+//   | |     ___  ___ ___  ___  _ __ | |  | |__  __  _____ _ __ ___ _ ___  ___ 
+//   | |    / _ \/ __/ __|/ _ \| '_ \| |  |  __| \ \/ / _ \ '__/ __| / __|/ _ \
+//   | |___|  __/\__ \__ \ (_) | | | | |  | |____ >  <  __/ | | (__| \__ \  __/
+//   |______\___||___/___/\___/|_| |_|_|  |______/_/\_\___|_|  \___|_|___/\___|
+//                                                                             
+//                                                                             
 
 /*
- * Consider the set of all sets that do not contain
- * themselves as members. Does it contain itself?
- *
- * In this exercise, you will modify a small model
- * about Russell's famous variation on that problem
- * -- the barber paradox: In a village in which the
- * barber shaves every man who doesn't shave
- * himself, who shaves the barber?
+ * In this exercise, you will modify a small model about Russell's famous variation on that problem
+ * -- the barber paradox: In a village in which the barber shaves every man who doesn't shave himself, who shaves the barber?
+ * (i.e. You only need to modify the signature part of the model and run it against our validator. Solve one question at a time)
  *
  * (a) Use the analyzer to show that the model
  * is indeed inconsistent, at least for villages of small sizes.
@@ -37,7 +33,6 @@
  */
 
 sig Man {shaves: set Man}
-
 one sig Barber extends Man {}
 
 fact {

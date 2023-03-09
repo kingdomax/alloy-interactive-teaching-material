@@ -6,7 +6,6 @@
 //   | |___|  __/\__ \__ \ (_) | | | |   | |
 //   |______\___||___/___/\___/|_| |_|   |_|                                                                             
 
-
 [1.1] Signatures
 A signature is a user-defined type that represents a set of atoms. They are used to illustrate the things that exist in the world you are modeling. Signatures are declared using the "sig" keyword followed by the signature name and the curly braces that contain the properties of the signature.
 For example, you could declare a signature for "Woman" with properties such as age, name, etc.

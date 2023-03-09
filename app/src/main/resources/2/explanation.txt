@@ -6,7 +6,6 @@
 //   | |___|  __/\__ \__ \ (_) | | | |   / /_ 
 //   |______\___||___/___/\___/|_| |_|  |____|
 
-
 [2.1] Facts
 Facts are constraints that are always true for any instance found over the model. They are used to specify properties of the model that are true in all possible instances of the model. This is useful for specifying global properties that must hold regardless of the specific values of the model's parameters or the instance being checked.
 The syntax for a fact is as follows:
@@ -34,7 +33,7 @@ The result of predicates will be true or false.
 The syntax for a predicate is as follows:
 ==> "pred name[a: Set1, b: Set2...] { expression }"
 For example, the following predicate checks if all nodes in a list are reachable from the header node using the link relation:
-==> "pred noDangling(){ Node in List.header.*link }"
+==> "pred noDangling() { Node in List.header.*link }"
 
 
 [2.4] Lesson Summary

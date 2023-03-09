@@ -41,13 +41,13 @@ public class AlloyValidator {
         });
 
         // 3) Check dead signatures
-        ConsoleHelper.response("Determining signatures that do not have atoms in any instance, i.e. dead signatures\n", true, 1000);
+        ConsoleHelper.response("Determining dead signatures, signatures that do not have atoms in any instance\n", true, 1000);
         MeasurementHelper.measureAndReport(() -> {
             getSignatureListThatNotSatisfyPredefinedExpression(Op.SOME, firstCommand, allSignatures, options, reporter);
         }, "", "\n");
 
         // 4) Check core signatures
-        ConsoleHelper.response("Determining signatures that always have atoms except in the empty instance, core signatures\n", true, 1000);
+        ConsoleHelper.response("Determining core signatures, signatures that always have atoms except in the empty instance\n", true, 1000);
         MeasurementHelper.measureAndReport(() -> {
             getSignatureListThatNotSatisfyPredefinedExpression(Op.NO, firstCommand, allSignatures, options, reporter);
         }, "", "\n");
