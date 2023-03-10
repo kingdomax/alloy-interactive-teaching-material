@@ -36,6 +36,14 @@ For example, the following predicate checks if all nodes in a list are reachable
 ==> "pred noDangling() { Node in List.header.*link }"
 
 
-[2.4] Lesson Summary
+[2.4] Run command & Scope
+Run command is used to instruct the Analyzer to search for a satisfying instance of scenarios within a given scope. By running the command, we can check if a formula or a constraint is consistent. The scope limits the size of the scenarios considered and makes the scenario finding feasible. (default scope = 3)
+The syntax for a run command is as follows:
+==> "run predicate/function/{constraint} for scope"
+For example, suppose we want to check if the "noDangling" predicate is true. We can run below command. The command will ask the Analyzer to find all the scenarios using up to 3 of each top-level, such that the "noDangling" predicate is true.
+==> "run noDangling for 3"
+
+
+[2.5] Lesson Summary
 Overall, using facts, functions, and predicates can help make your Alloy models more modular and easier to understand. By breaking down complex properties and computations into smaller, reusable pieces, you can create more readable and maintainable models.
  

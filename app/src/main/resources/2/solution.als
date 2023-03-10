@@ -1,6 +1,6 @@
 
 /*
- * Solutions to fact/function/predicate lesson's exercise
+ * Solutions to lesson2 exercise
  */
 
 abstract sig Person {

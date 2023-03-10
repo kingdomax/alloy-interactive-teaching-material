@@ -1,6 +1,6 @@
 
 /*
- * Solutions to signature lesson's exercise
+ * Solutions to signature lesson1 exercise
  * Uncomment them one at a time and execute the command.
  */
 
