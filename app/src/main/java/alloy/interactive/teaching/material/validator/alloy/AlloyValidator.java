@@ -20,8 +20,18 @@ import alloy.interactive.teaching.material.helper.ConsoleHelper;
 
 public class AlloyValidator {
     public static void execute(String filename) {
-        // 0) Setup
         FileHelper.readFile("", "analyzer", false, false);
+        if (filename.endsWith(".xml")) { visualize(filename); }
+        else { analyze(filename); }
+    }
+
+    private static void visualize(String filename) {
+        ConsoleHelper.response("Visualizing instance: " + filename + "\n", true, 1000);
+        new VizGUI(true, filename, null).doShowViz();
+    }
+
+    private static void analyze(String filename) {
+        // 0) Setup
         A4Options options = AlloyOption.getOptions();
         A4Reporter reporter = AlloyOption.getReporter();
 
@@ -105,7 +115,8 @@ public class AlloyValidator {
             var outputFile = createOutputFile(inputFile, instance);
             solutions.writeXML(outputFile);
             new VizGUI(false, outputFile, null).doShowViz();
-            System.out.println("The instance is generated and is saved as " + outputFile + "\n");
+            System.out.println("The instance is generated and is saved as " + outputFile + ". To view this file later on, please use the command below.");
+            System.out.println("'java -jar alloy-interactive-teaching-material.jar --lesson <lesson-number> --part exercise-submit --partParam " + outputFile + "'\n");
             System.out.println("#################################################################");
 
             // Next instance ??

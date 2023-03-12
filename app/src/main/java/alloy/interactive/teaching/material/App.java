@@ -1,12 +1,13 @@
 package alloy.interactive.teaching.material;
 
 import alloy.interactive.teaching.material.helper.FileHelper;
+import alloy.interactive.teaching.material.config.LessonConfigManager;
 import alloy.interactive.teaching.material.helper.ConsoleHelper;
 import alloy.interactive.teaching.material.validator.CommandLineValidator;
 import alloy.interactive.teaching.material.validator.alloy.AlloyValidator;
 
 public class App {
-    interface Condition { boolean test(String input); }
+    interface Condition { boolean doesNotSatisfy(String input); }
     interface Part { String execute(String message, String partName, String lessonNumber, boolean useLessonNumberFromInput, boolean copyFile, Condition condition); }
 
     public static void main(String[] args) {
@@ -25,7 +26,7 @@ public class App {
         
         Part part = (message, partName, lessonNumber, useLessonNumberFromInput, copyFile, condition) -> {
             String input = "";
-            while (condition.test(input)) {
+            while (condition.doesNotSatisfy(input)) {
                 ConsoleHelper.response(message, true, -1);
                 input = System.console().readLine().toLowerCase();
             }
@@ -36,7 +37,7 @@ public class App {
         };
 
         String lesson = part.execute("What lesson are you interested in learning today? (1-3): ", 
-            "explanation", "", true, true, input -> !input.equals("1") && !input.equals("2") && !input.equals("3")); // todo-moch: change to config
+            "explanation", "", true, true, input -> !LessonConfigManager.isValidLessonNumber(input));
         part.execute("Would you like to see syntax example? (y/n): ",
             "example", lesson, false, true, input -> !input.equals("y"));
         part.execute("It's time for an exercise. Shall we start? (y/n): ",

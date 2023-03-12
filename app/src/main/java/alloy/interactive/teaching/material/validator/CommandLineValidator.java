@@ -1,10 +1,9 @@
 package alloy.interactive.teaching.material.validator;
 
-// todo-moch
-// - support running graphical instance command by passing xml file (don't forgot to change text in alloyvalidator)
+import alloy.interactive.teaching.material.config.LessonConfigManager;
 
 // Synopsis
-// java -jar alloy-interactive-teaching-material.jar --lesson <lesson-number> --part <explanation||example||exercise||exercise-solution||exercise-submit> [--partParam <solution-file>]
+// java -jar alloy-interactive-teaching-material.jar --lesson <lesson-number> --part <explanation||example||exercise||exercise-solution||exercise-submit> [--partParam <solution-file.als||instance.xml>]
 public class CommandLineValidator {
     public static boolean isValidArguments(String[] args) {
         // minimum number of parameters
@@ -12,16 +11,19 @@ public class CommandLineValidator {
             return false;
         }
 
-        // todo-moch: use config instead
+        // make sure "lesson-number" is legit and "--part" has correct value
         if (!args[0].equals("--lesson") ||
-            (!args[1].equals("1") && !args[1].equals("2") && !args[1].equals("3")) || 
+            !LessonConfigManager.isValidLessonNumber(args[1]) || 
             !args[2].equals("--part") ||
             (!args[3].equals("explanation") && !args[3].equals("example") && !args[3].equals("exercise") && !args[3].equals("exercise-solution") && !args[3].equals("exercise-submit"))) {
             return false;
         }
 
         // make sure "exercise-submit" commmand is in correct structure
-        if (args[3].equals("exercise-submit") && (args.length <= 5 || !args[4].equals("--partParam"))) {
+        if (args[3].equals("exercise-submit") &&
+            (args.length <= 5 ||
+            !args[4].equals("--partParam") || 
+            (!args[5].endsWith(".als") && !args[5].endsWith(".xml")))) {
             return false;
         }
 

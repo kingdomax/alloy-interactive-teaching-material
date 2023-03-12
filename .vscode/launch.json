@@ -3,19 +3,20 @@
     // Hover to view descriptions of existing attributes.
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
-    "configurations": [
+    "configurations": [    
         {
             "type": "java",
             "request": "launch",
             "name": "Launch App",
             "projectName": "app",
             "mainClass": "alloy.interactive.teaching.material.App",
-            /* --lesson <lesson-number> --part <explanation||example||exercise||exercise-solution||exercise-submit> [--partParam <solution-file>] */
+            /* --lesson <lesson-number> --part <explanation||example||exercise||exercise-solution||exercise-submit> [--partParam <solution-file.als||instance.xml>] */
             //"args": "--lesson 1 --part explanation"
             //"args": "--lesson 1 --part example"
             //"args": "--lesson 1 --part exercise"
             //"args": "--lesson 1 --part exercise-solution"
             //"args": "--lesson 1 --part exercise-submit --partParam my_solution.als"
+            //"args": "--lesson 1 --part exercise-submit --partParam my_solution_instance1.xml"
         }
         //,{
         //    "type": "java",
