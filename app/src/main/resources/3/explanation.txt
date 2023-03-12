@@ -11,7 +11,6 @@ Relational first-order logic (FOL) is a logical formalism and is specifically de
 Alloy uses FOL to specify and reason about models of complex systems. This means that Alloy models consist of relations between sets, where relations are binary sets of tuples. These tuples contain elements from the sets being related.
 For example, if we define two sets, A and B, we can relate them with a relation R, where R = A x B, which is the Cartesian product of A and B.
 
-
 [3.2] FOL: Set operators
 Set operators can be used to construct new sets from existing ones, for use in expressions and predicates. The set operators in Alloy include:
 - "+"   union
@@ -25,7 +24,6 @@ For example:
 - "S1 - S2" is the set of all elements in S1 but not S2 (set difference)
 - "S1 & S2" is the set of all elements in both S1 and S2 (set intersection)
 
-
 [3.3] FOL: Relational operators
 Relational operators relate one set to another and are useful in Alloy modeling to express complex relationships. Alloy provides several relational operators:
 - "->"  arrow (cross product)
@@ -37,7 +35,6 @@ For example:
 - "~S1"       is taking the mirror image of the relation S1 (i.e. reverse the order of atoms in each tuple)
 - "S1 --> S2" is the relation you get by taking every combination of a tuple from S1 and a tuple from S2 and concatenating them
 - "S1.S2"     is the relation you get by taking every combination of a tuple from S1 and a tuple from S2 and adding their join, if it exists
-
 
 [3.4] FOL: Boolean operators
 Boolean operators are used to create complex formulas that evaluate to true or false. These operators are useful in expressing constraints that involve multiple conditions. The usual boolean operators are available, often in two forms below:
@@ -53,7 +50,6 @@ Below are example of four equivalent constraints
 - "(C1 && C2) || ((!C1) && C3)"
 - "(C1 and C2) or ((not C1) and C3)"
 
-
 [3.5] FOL: Quantifiers
 Quantifiers are expressions that allow us to specify a condition that applies to all, some, or none of the elements in a set. All of them have the similar form "some x: S1 | expr". Alloy supports five types of quantifiers:
 - "all x: S1 | expr"    expression holds for every x in S1
@@ -65,7 +61,6 @@ For example:
 - "all n : List.header.*link | no n.link"   True if every node in the list has no link
 - "some n : List.header.*link | no n.link"  True if at least one node in the list has no link.
 - "no n : List.header.*link | no n.link"    True if no node in the list has no link.
-
 
 [3.6] Lesson Summary
 In summary, Alloy's Relational FOL is a powerful language for modeling complex systems. By using set, relational, boolean operators, and quantifiers, we can define complex relationships and constraints that capture the essential properties of a system.

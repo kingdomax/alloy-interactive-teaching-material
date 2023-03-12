@@ -1,6 +1,6 @@
 
 To validate your alloy model, you can use below command:
-"java -jar alloy-interactive-teaching-material.jar --lesson <lesson-number> --part exercise-submit --partParam <solution-file>"
+"java -jar alloy-interactive-teaching-material.jar --lesson <lesson-number> --part exercise-submit --partParam <solution-file.als>"
 
 Of course. If you are struggling with this exercise, feel free to take a look on our solution using command line below:
 "java -jar alloy-interactive-teaching-material.jar --lesson <lesson-number> --part exercise-solution"

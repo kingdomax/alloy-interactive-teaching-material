@@ -1,3 +1,4 @@
+
      _    _ _                _____               _     _                   _                
     / \  | | | ___  _   _   |_   _|__  __ _  ___| |__ (_)_ __   __ _      / \   _ __  _ __  
    / _ \ | | |/ _ \| | | |    | |/ _ \/ _` |/ __| '_ \| | '_ \ / _` |    / _ \ | '_ \| '_ \ 
@@ -5,5 +6,33 @@
  /_/   \_\_|_|\___/ \__, |    |_|\___|\__,_|\___|_| |_|_|_| |_|\__, |  /_/   \_\ .__/| .__/ 
                     |___/                                      |___/           |_|   |_|    
 
-Explaination goes here............
+[Welcome]
+Welcome to the world of Alloy! Alloy is a powerful formal specification language and analysis tool that allows you to describe and analyze the structure and behavior of various systems, including software, hardware, networks, and organizations. It uses a combination of first-order logic, set theory, and relational algebra to define models and analyze them for inconsistencies, counterexamples, and other properties of interest.
+
+[Application Instruction]
+Our interactive teaching application is designed to introduce you to the fundamentals of Alloy language. With this application, you will gain a solid understanding of Alloy's key concepts through a series of unit lessons. Each lesson includes examples, practice exercises, and informative feedback to help you master the material. Plus, you can easily pick up where you left off and learn at your own pace.
+
+[Command Instruction]
+To run the application, you have two options:
+
+1) Walkthrough each unit lesson - This is a traditional approach that allows you to navigate and learn through your desired lesson. Upon completion of the lesson, you will be prompted with a syntax example and end up with an exercise to test your knowledge of the lesson. It is worthwhile to note that each lesson's sections will be saved as .txt or .als files in the same directory as the application.
+You can run the application in this scenario using the command below:
+==> "java -jar alloy-interactive-teaching-material.jar"
+
+2) Jump to a specific lesson's section - You can quickly access a particular lesson's section by simply instructing the application with the below command synopsis:
+==> "java -jar alloy-interactive-teaching-material.jar --lesson <lesson-number> --part <explanation||example||exercise||exercise-solution||exercise-submit> [--partParam <solution-file.als||instance.file.xml>]"
+For example:
+- "java -jar alloy-interactive-teaching-material.jar --lesson 2 --part explanation"                      This command instructs the application to display only the explanation section from lesson2.
+- "java -jar alloy-interactive-teaching-material.jar --lesson 2 --part exercise"                         This command instructs the application to display only the exercise section from lesson2.
+- "java -jar alloy-interactive-teaching-material.jar --lesson 2 --part exercise-solution"                This command instructs the application to display only the exercise's solution from lesson2.
+- "java -jar alloy-interactive-teaching-material.jar --lesson 2 --part exercise-submit my-solution.als"  This command instructs the alloy analyzer to validate "my-solution.als" model and display the feedback output.
+- "java -jar alloy-interactive-teaching-material.jar --lesson 2 --part exercise-submit my-instance.xml"  This command instructs the application to visualize the instance from "my-instance.xml" in GUI mode.
+
+[Unit Lessons]
+Our application covers 3 unit lessons, each focusing on a specific topic. Each lesson also includes specific tasks to help you reinforce your understanding of the material.
+1) Signatures, Relations, Multiplicities
+2) Facts, Functions, Predicates
+3) All types of operators, Quantifiers
+ 
+We hope you find our interactive teaching application helpful as you embark on your journey to master Alloy!
  

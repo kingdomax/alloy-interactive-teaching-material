@@ -17,7 +17,7 @@ public class FileHelper {
     private static final String EXAMPLE_FILE = "example.als";
     private static final String EXERCISE_FILE = "exercise.als";
     private static final String SOLUTION_FILE = "solution.als";
-    private static final String LINE = "############################################################################################";
+    private static final String LINE = "################################################################################################";
 
     public static void readFile(String lesson, String file, boolean printLine, boolean copyFile) {
         BufferedReader reader = null;

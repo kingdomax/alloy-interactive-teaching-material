@@ -13,7 +13,6 @@ The syntax for a fact is as follows:
 For example, the following fact ensures that all nodes in a list are connected:
 ==> "fact Connected { List.header.*link = Node } // All nodes are in the list"
 
-
 [2.2] Functions
 Functions are named expressions with declaration parameters and a declaration expression.
 They are a way of encapsulating a computation that can be reused in other parts of the model.
@@ -23,7 +22,6 @@ The syntax for a function is as follows:
 ==> "fun name[a: Set1, b: Set2]: output_type { expression }"
 For example, the following function returns the set of all parent nodes of a given node based on the link relation:
 ==> "fun parent [n: Node] : Node { n.~link }"
-
 
 [2.3] Predicates
 Predicates are named formulas with declaration parameters.
@@ -35,14 +33,12 @@ The syntax for a predicate is as follows:
 For example, the following predicate checks if all nodes in a list are reachable from the header node using the link relation:
 ==> "pred noDangling() { Node in List.header.*link }"
 
-
 [2.4] Run command & Scope
 Run command is used to instruct the Analyzer to search for a satisfying instance of scenarios within a given scope. By running the command, we can check if a formula or a constraint is consistent. The scope limits the size of the scenarios considered and makes the scenario finding feasible. (default scope = 3)
 The syntax for a run command is as follows:
 ==> "run predicate/function/{constraint} for scope"
 For example, suppose we want to check if the "noDangling" predicate is true. We can run below command. The command will ask the Analyzer to find all the scenarios using up to 3 of each top-level, such that the "noDangling" predicate is true.
 ==> "run noDangling for 3"
-
 
 [2.5] Lesson Summary
 Overall, using facts, functions, and predicates can help make your Alloy models more modular and easier to understand. By breaking down complex properties and computations into smaller, reusable pieces, you can create more readable and maintainable models.
