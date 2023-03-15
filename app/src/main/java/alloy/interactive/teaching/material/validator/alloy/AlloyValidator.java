@@ -31,7 +31,7 @@ public class AlloyValidator {
     }
 
     private static void analyze(String filename) {
-        // 0) Setup
+        // 0) Setup Alloy behavior
         A4Options options = AlloyOption.getOptions();
         A4Reporter reporter = AlloyOption.getReporter();
 
@@ -50,7 +50,7 @@ public class AlloyValidator {
             solutionWrapper[0] = TranslateAlloyToKodkod.execute_command(reporter, moduleWrapper[0].getAllReachableSigs(), firstCommand, options);
         });
 
-        // 3) Check dead signatures
+        // 3) Analyze dead signatures
         ConsoleHelper.response("Determining dead signatures, signatures that do not have atoms in any instance\n", true, 1000);
         MeasurementHelper.measureAndReport(() -> {
             getSignatureListThatNotSatisfyPredefinedExpression(Op.SOME, firstCommand, allSignatures, options, reporter);
@@ -62,7 +62,7 @@ public class AlloyValidator {
             getSignatureListThatNotSatisfyPredefinedExpression(Op.NO, firstCommand, allSignatures, options, reporter);
         }, "", "\n");
 
-        // 5) Iterate through solutions and display informative output
+        // 5) Iterate through solutions and display instance's information
         ConsoleHelper.response("Executing command: " + firstCommand + "\n", true, 1000); 
         if (solutionWrapper[0].satisfiable()) {
             System.out.println("Instances found, predicate is consistent ("+commandTime+"ms)\n");
