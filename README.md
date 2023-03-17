@@ -34,3 +34,6 @@ Each lesson also includes specific tasks to help you reinforce your understandin
 1) Signatures, Relations, Multiplicities
 2) Facts, Functions, Predicates
 3) All types of operators, Quantifiers
+
+## Demo
+https://youtu.be/4nGifpBZKEc
