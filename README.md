@@ -1,12 +1,12 @@
-# alloy-interactive-teaching-material
-![cover](https://github.com/user-attachments/assets/d3bab1d1-5d24-42da-baf7-9d5f9436d6b4)
+# Alloy Interactive Teaching Material
+[![Watch the video](https://github.com/user-attachments/assets/d3bab1d1-5d24-42da-baf7-9d5f9436d6b4)](https://www.youtube.com/watch?v=4nGifpBZKEc)
 
 The interactive teaching application is designed to introduce the fundamentals of Alloy language. 
 With this application, learner will gain a solid understanding of Alloy's key concepts through a series of unit lessons.
 Each lesson includes examples, practice exercises, and informative feedback to help you master the material.
 Plus, user can easily pick up where you left off and learn at your own pace.
 
-Demo: https://youtu.be/4nGifpBZKEc
+Demo: https://www.youtube.com/watch?v=4nGifpBZKEc
 
 ## Key Features
 - **Structured Unit Lessons:** Offers three clear and structured lessons covering Alloy’s core concepts, each complemented by explanations, syntax examples, and practical exercises.
