@@ -1,9 +1,20 @@
 # alloy-interactive-teaching-material
+![cover](https://github.com/user-attachments/assets/d3bab1d1-5d24-42da-baf7-9d5f9436d6b4)
 
 The interactive teaching application is designed to introduce the fundamentals of Alloy language. 
 With this application, learner will gain a solid understanding of Alloy's key concepts through a series of unit lessons.
 Each lesson includes examples, practice exercises, and informative feedback to help you master the material.
 Plus, user can easily pick up where you left off and learn at your own pace.
+
+Demo: https://youtu.be/4nGifpBZKEc
+
+## Key Features
+- **Structured Unit Lessons:** Offers three clear and structured lessons covering Alloy’s core concepts, each complemented by explanations, syntax examples, and practical exercises.
+- **Interactive Exercises with Feedback:** Allows users to submit Alloy solutions, automatically validates them, provides immediate feedback, and visualizes model instances graphically.
+- **Flexible Navigation:** Supports both sequential learning and direct access to specific lesson sections via an intuitive command-line interface.
+- **Performance Measurement:** Measures and displays execution times for parsing, analyzing, and running Alloy models to ensure responsive performance.
+- **Modular Design for Extensibility:** Designed with modular architecture, enabling straightforward integration of new lessons and features without extensive code changes.
+- **Resource Management:** Stores lesson materials, user submissions, and analyzed instances as files for easy future access and review.
 
 ## Project Setup
 1. Install OpenJDK/JDK 
@@ -34,6 +45,3 @@ Each lesson also includes specific tasks to help you reinforce your understandin
 1) Signatures, Relations, Multiplicities
 2) Facts, Functions, Predicates
 3) All types of operators, Quantifiers
-
-## Demo
-https://youtu.be/4nGifpBZKEc
